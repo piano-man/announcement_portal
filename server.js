@@ -10,7 +10,7 @@ var io = require('socket.io')(http);
 var dataid;
 var camid;
 var mongo = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/test";
+var url = "mongodb://localhost:27017/professor";
 var val
 
 
@@ -36,9 +36,43 @@ app.post('/login',function(req,res){
     {
         res.redirect('http://localhost:3000/dashboard_admin.html')
     }
+    else if (name=="teacher" && pwd=="teacher" )
+    {
+        res.redirect('http://localhost:3000/teacher.html')
+    }
 
 
 
+})
+
+app.get('/teacher/:query',function(req,res){
+    var sub = req.params.query
+    console.log(sub)
+    res.sendFile(__dirname+"/Public/send_msg.html")
+})
+
+app.post('/send',function(req,res){
+    var message = req.body.confirmationText;
+    var scode=req.body.code;
+    var entry ={
+        message:message,
+        sub_code:scode
+    }
+        mongo.connect(url,function(err,db){
+        console.log('inside mongo');
+         db.collection('entries').insertOne(entry,function(err,result){
+             if(err)
+             {
+                 console.log(err)
+             }
+             else{
+                  res.sendFile(__dirname+"/Public/send_msg.html");
+             }
+
+         })
+
+     })
+    res.redirect("http://localhost:3000/send_msg.html")
 })
 
 app.get('/courses',function(req,res){
