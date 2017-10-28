@@ -49,7 +49,7 @@ app.get('/subject/:query',function(req,res){
     console.log("back end request")
     var name = req.params.query
     console.log(name)
-    res.redirect("http://localhost:3000/subject.html")
+    res.sendFile(__dirname+"/Public/subject.html")
 })
 
 

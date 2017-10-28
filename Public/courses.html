@@ -68,9 +68,10 @@
               var data = $(elem).text()
               var url = "http://localhost:3000/subject/"+data
               //socket.emit('name',data)
-              $.get(url,function(){
-                  console.log("front-end get request")
-              })
+              $(location).attr('href',url);
+             // $.get(url,function(){
+               //   console.log("front-end get request")
+              //})
           }
         
           </script>
