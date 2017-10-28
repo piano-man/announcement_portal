@@ -1,0 +1,33 @@
+.login-container{
+	margin-top: 10%;
+	padding: 20px;
+	background: #CCC;
+}
+
+ #ajaxLoader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8) url(/static/images/loader.gif) center center no-repeat;
+    z-index: 1000;
+    height: 100%;
+}
+
+.form-error{
+	border: 1px solid red;
+}
+
+.navs-container{
+    padding: 10px;
+}
+.main-container ul {
+    display: inline-block;
+}
+
+.content-container {
+    margin-top: 20px;
+    padding: 20px;
+    background: #D3D3E3;
+}
