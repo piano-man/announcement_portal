@@ -11,6 +11,8 @@ var dataid;
 var camid;
 var mongo = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/test";
+var val
+
 
 require('events').EventEmitter.prototype._maxListeners = 100;
 
@@ -38,6 +40,18 @@ app.post('/login',function(req,res){
 
 
 })
+
+app.get('/courses',function(req,res){
+    res.redirect("http://localhost:3000/courses.html")
+})
+
+app.get('/subject/:query',function(req,res){
+    console.log("back end request")
+    var name = req.params.query
+    console.log(name)
+    res.redirect("http://localhost:3000/subject.html")
+})
+
 
 app.post('/action',function(req,res){
     console.log(req.body)

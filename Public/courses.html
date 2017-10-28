@@ -15,6 +15,7 @@
       <script src="js/respond.min.js"></script>
     <![endif]-->
     <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script src="socket.io.js"></script>
 
     <script type="text/javascript" src="/static/dist/js/site.min.js"></script>
   </head>
@@ -55,17 +56,23 @@
         <div class="row row-offcanvas row-offcanvas-left">
           <div class="col-xs-6 col-sm-3 sidebar-offcanvas" role="navigation">
         <div><ul class="list-group panel">
-  <li class="list-group-item"><i class="glyphicon glyphicon-align-justify"></i> <b>Cultural Wing</b></li>
   <!-- <li class="list-group-item"><input type="text" class="form-control search-query" placeholder="Search Something"></li> -->
-  <li class="list-group-item"><a href="/dashboard"><i class="glyphicon glyphicon-home"></i>Technical Wing </a></li>
-  <li class="list-group-item" onClick="loc()"><a href="/customers"><i class="fa fa-users" ></i>Gymkhana </a></li>
-    <li class="list-group-item" onClick="loc()"><a href="/customers"><i class="fa fa-users" ></i>Effervescence </a></li>
-  <li class="list-group-item" onClick="loc()"><a href="/customers"><i class="fa fa-users" ></i>Sports </a></li>
-  <li class="list-group-item" onClick="loc()"><a href="/courses"><i class="fa fa-users" ></i>Courses </a></li>
-
-
+  <button onclick="transmit(this)">ICNW</button>
+    <li class="list-group-item"><a href="/subject"><i class="glyphicon glyphicon-home"></i>GVC</a></li>
 </ul></div>
           <script>
+          
+          function transmit(elem)
+          {
+              console.log("function fired")
+              var data = $(elem).text()
+              var url = "http://localhost:3000/subject/"+data
+              //socket.emit('name',data)
+              $.get(url,function(){
+                  console.log("front-end get request")
+              })
+          }
+        
           </script>
           </div>
           <div class="col-xs-12 col-sm-9 content">
