@@ -24,7 +24,7 @@ var storage = multer.diskStorage({
   filename: function (req, file, cb) {
     crypto.pseudoRandomBytes(16, function (err, raw) {
       if (err) return cb(err)
-
+if(file!=undefined)
       cb(null, file.originalname)
     })
   }
@@ -75,10 +75,22 @@ app.post('/teacher/:query',upload.single('datafile'),function(req,res,next){
     var scode=req.body.code;
     var filename = req.body.datafile;
     console.log(req.file)
-        const filena =req.file.originalname;
+    if(req.file!=undefined)
+    {
+                const filena =req.file.originalname;
         const pa=`${__dirname}/`+"uploads/";
-        const data=image.loadSync(pa,filena);
+         data=image.loadSync(pa,filena);
+         console.log(data)
+
+    }
+    else{
+         data=null
+    }
+
         //console.log(data)
+        //setTimeout(enter,1000)
+        //function enter()
+       // {
     var entry ={
         message:message,
         sub_code:scode,
@@ -99,6 +111,8 @@ app.post('/teacher/:query',upload.single('datafile'),function(req,res,next){
          })
 
      })
+        //}
+
      
 })
 

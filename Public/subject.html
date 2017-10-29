@@ -68,6 +68,10 @@
               for(i=0;i<size;i++)
               {
                   console.log(data[i]._id)
+                  if(data[i].file!=null)
+                  {
+                      //window.open("data:application/octet-stream;base64," + base64);
+                  }
                   $("#list").append('<button type="button" id="' + data[i]._id + '" class = "btn btn-primary btn-block" onclick="play_playlist_song(event)">' + data[i].message + '</button><br />');
               }
           })
