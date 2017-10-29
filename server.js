@@ -16,6 +16,8 @@ var upload = multer({ dest: 'uploads/' })
 var val
 var mime = require('mime-types')
 var crypto = require('crypto')
+const Base64File=require('js-base64-file');
+const image=new Base64File;
 
 var storage = multer.diskStorage({
   destination: './uploads/',
@@ -23,7 +25,7 @@ var storage = multer.diskStorage({
     crypto.pseudoRandomBytes(16, function (err, raw) {
       if (err) return cb(err)
 
-      cb(null, raw.toString('hex') + "."+mime.extension(file.mimetype))
+      cb(null, file.originalname)
     })
   }
 })
@@ -72,12 +74,16 @@ app.post('/teacher/:query',upload.single('datafile'),function(req,res,next){
     var message = req.body.confirmationText;
     var scode=req.body.code;
     var filename = req.body.datafile;
-    console.log(req.file.mimetype)
-    req.file.filename=req.file.filename+".jpg"
+    console.log(req.file)
+        const filena =req.file.originalname;
+        const pa=`${__dirname}/`+"uploads/";
+        const data=image.loadSync(pa,filena);
+        //console.log(data)
     var entry ={
         message:message,
         sub_code:scode,
-        time: new Date()
+        time: new Date(),
+        file:data
     }
         mongo.connect(url,function(err,db){
         console.log('inside mongo');
