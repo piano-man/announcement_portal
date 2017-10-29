@@ -17,6 +17,7 @@
     <script src="https://www.w3schools.com/lib/w3.js">
  
     </script>
+    <script src="/socket.io/socket.io.js"></script>
 
     <script type="text/javascript" src="/static/dist/js/site.min.js"></script>
   </head>
@@ -56,7 +57,7 @@
     <!--documents-->
         <div class="row row-offcanvas row-offcanvas-left">
           <div class="col-xs-6 col-sm-3 sidebar-offcanvas" role="navigation">
-              <form action="" role='form' method="post" enctype="multipart/form-data">
+              <form action="" role='form' method="post" enctype="multipart/form-data" onsubmit="time()">
               <textarea id="confirmationText" class="text" cols="86" rows ="20" name="confirmationText"></textarea>
               <input type="text" class="text" placeholder="subject code" id="code" name = "code">
               <input type="file" name="datafile" size="40">
@@ -65,6 +66,14 @@
           <script>
              var s = (window.location.pathname).split('/')[2]
           document.getElementById('code').value=s
+          /*function time()
+          {
+              var socket = io.connect("http://localhost:3000")
+              var dat = new Date()
+              console.log("value emitted")
+              socket.emit('timestamp',dat)
+
+          }*/
           </script>
           </div>
           <div class="col-xs-12 col-sm-9 content">

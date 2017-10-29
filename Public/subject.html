@@ -52,12 +52,17 @@
     <!--header-->
     <div class="container-fluid">
     <!--documents--><script>
+    		var url = window.location.href;
+		console.log(url);
+		$.get(url,function(){
+
+		})
               var s= (window.location.pathname).split('/')[2]
           var u = "http://localhost:3000/"+s
           var socket = io.connect(u)
     </script>
         <div class="row ">
-          <div class="col-md-6" role="navigation">
+          <div class="col-md-4" role="navigation">
               <div id = "list" name="entries">
               </div>
 
@@ -66,14 +71,22 @@ var count = 0;
           socket.on(s,function(data){
               console.log(data)
               var size = data.length
+              console.log(count)
+              console.log(size)
          $('.list').empty()
           $('.list2').empty()
           $('.list3').empty()
-          if(size!=count)
+          if(count<=size&&count!=size)
           {
 
-          
-              for(i=0;i<size;i++)
+          if(count==0)
+          {
+              i=0
+          }
+          else{
+              i=count;
+          }
+              for(i;i<size;i++)
               {
                   count++;
                   console.log(data[i]._id)
@@ -81,6 +94,9 @@ var count = 0;
                   {
                   $("#list3").append('<a download="'+data[i].filename+'" href ="data:image/octet-stream;charset=utf-16le;base64,'+data[i].file+'" >Download</a>');
                       
+                  }
+                  else{
+                      $("#list3").append('<a download="" href ="data:image/octet-stream;charset=utf-16le;base64," >No File</a>');
                   }
                   $("#list").append('<button type="button" id="' + data[i]._id + '" class = "btn btn-primary btn-block">' + data[i].message + '</button><br />');
               
@@ -91,7 +107,7 @@ var count = 0;
           })
           </script>
           </div>
-          <div class="col-md-1" role="navigation">
+          <div class="col-md-4" role="navigation">
                             <div id = "list3" name="files">
               </div>
           </div>
@@ -99,11 +115,6 @@ var count = 0;
           <div id="list2" name="entrytime">
           </div>
           </div>
-          <div class="col-xs-12 col-sm-9 content">
-            <div class="panel panel-default">
-
-        </div><!-- content -->
-      </div>
     </div>
     </div>
 

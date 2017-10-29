@@ -70,6 +70,7 @@ app.get('/teacher/:query',function(req,res){
     res.sendFile(__dirname+"/Public/send_msg.html")
 })
 
+
 app.post('/teacher/:query',upload.single('datafile'),function(req,res,next){
     var message = req.body.confirmationText;
     var scode=req.body.code;
@@ -93,7 +94,10 @@ app.post('/teacher/:query',upload.single('datafile'),function(req,res,next){
         //setTimeout(enter,1000)
         //function enter()
        // {
-    var entry ={
+           
+               console.log("connection received")
+               //socket1.on('timestamp',function(time)
+                        var entry ={
         message:message,
         sub_code:scode,
         time: new Date(),
@@ -114,11 +118,15 @@ app.post('/teacher/:query',upload.single('datafile'),function(req,res,next){
 
          })
 
-     })
+     }) 
+                   
+              // })
+             
         //}
 
      
 })
+
 
 app.get('/courses',function(req,res){
     res.redirect("http://localhost:3000/courses.html")
@@ -129,30 +137,34 @@ app.get('/subject/:query',function(req,res){
     var subject = req.params.query
         mongo.connect(url,function(err,db){
         console.log('inside mongo');
-         db.collection('entries').find({"sub_code":subject},function(err,results){
+         db.collection('entries').find({query:{"sub_code":subject},$orderby:{time:1}},function(err,results){
              if(err)
              {
                  console.log(err)
              }
              else{
                   results.forEach(function(doc,err){
+                      console.log(doc)
                       entries.push(doc)
                   })
-         console.log(entries)
+                  setTimeout(delay,1000)
+                  function delay()
+                  {
+                               console.log(entries)
                   nsp = io.of('/'+subject)
                   nsp.on('connection',function(socket){
                       nsp.emit(subject,entries)
                   })
+                   res.sendFile(__dirname+"/Public/subject.html")
+                      
+                  }
+
              }
 
          })
 
      })
-
-    console.log("back end request")
-    var name = req.params.query
-    console.log(name)
-    res.sendFile(__dirname+"/Public/subject.html")
+   
 })
 
 
