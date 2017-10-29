@@ -18,7 +18,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="/static/dist/js/site.min.js"></script>
   </head>
-  <body>
+  <body background="bg.jpg">
     
     <!--nav-->
     <nav role="navigation" class="navbar navbar-custom">
@@ -92,11 +92,11 @@ var count = 0;
                   console.log(data[i]._id)
                   if(data[i].file!=null)
                   {
-                  $("#list3").append('<a style="display:block;" download="'+data[i].filename+'" class = "btn btn-primary btn-block" href ="data:image/octet-stream;charset=utf-16le;base64,'+data[i].file+'" >Download</a>');
+                  $("#list3").append('<a style="display:block;padding-bottom:14px;" download="'+data[i].filename+'" class = "btn btn-primary btn-block" href ="data:image/octet-stream;charset=utf-16le;base64,'+data[i].file+'" >Download</a>');
                       
                   }
                   else{
-                      $("#list3").append('<a style="display:block;" download="" class = "btn btn-primary btn-block" href ="data:image/octet-stream;charset=utf-16le;base64," >No File</a>');
+                      $("#list3").append('<a style="display:block;padding-bottom:14px;"  download="" class = "btn btn-primary btn-block" href ="data:image/octet-stream;charset=utf-16le;base64," >No File</a>');
                   }
                   $("#list").append('<button type="button" id="' + data[i]._id + '" class = "btn btn-primary btn-block">' + data[i].message + '</button><br />');
               
@@ -108,7 +108,7 @@ var count = 0;
           </script>
           </div>
           <div class="col-md-4" role="navigation">
-                            <div id = "list3" style="paddingBottom:1cm;" name="files">
+                            <div id = "list3"  name="files">
               </div>
           </div>
           <div class="col-md-4" role="navigation">
