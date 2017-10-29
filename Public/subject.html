@@ -61,7 +61,7 @@
           var u = "http://localhost:3000/"+s
           var socket = io.connect(u)
     </script>
-        <div class="row ">
+        <div class="row " style="display:flex;flex-direction:row;">
           <div class="col-md-4" role="navigation">
               <div id = "list" name="entries">
               </div>
@@ -92,11 +92,11 @@ var count = 0;
                   console.log(data[i]._id)
                   if(data[i].file!=null)
                   {
-                  $("#list3").append('<a download="'+data[i].filename+'" href ="data:image/octet-stream;charset=utf-16le;base64,'+data[i].file+'" >Download</a>');
+                  $("#list3").append('<a style="display:block;" download="'+data[i].filename+'" class = "btn btn-primary btn-block" href ="data:image/octet-stream;charset=utf-16le;base64,'+data[i].file+'" >Download</a>');
                       
                   }
                   else{
-                      $("#list3").append('<a download="" href ="data:image/octet-stream;charset=utf-16le;base64," >No File</a>');
+                      $("#list3").append('<a style="display:block;" download="" class = "btn btn-primary btn-block" href ="data:image/octet-stream;charset=utf-16le;base64," >No File</a>');
                   }
                   $("#list").append('<button type="button" id="' + data[i]._id + '" class = "btn btn-primary btn-block">' + data[i].message + '</button><br />');
               
@@ -108,7 +108,7 @@ var count = 0;
           </script>
           </div>
           <div class="col-md-4" role="navigation">
-                            <div id = "list3" name="files">
+                            <div id = "list3" style="paddingBottom:1cm;" name="files">
               </div>
           </div>
           <div class="col-md-4" role="navigation">
