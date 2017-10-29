@@ -1,4 +1,5 @@
 var express = require('express');
+var multer = require('multer')
 var bodyParser = require('body-parser');
 var app = express();
 var http = require('http').createServer(app);
@@ -11,8 +12,23 @@ var dataid;
 var camid;
 var mongo = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/professor";
+var upload = multer({ dest: 'uploads/' })
 var val
+var mime = require('mime-types')
+var crypto = require('crypto')
 
+var storage = multer.diskStorage({
+  destination: './uploads/',
+  filename: function (req, file, cb) {
+    crypto.pseudoRandomBytes(16, function (err, raw) {
+      if (err) return cb(err)
+
+      cb(null, raw.toString('hex') + "."+mime.extension(file.mimetype))
+    })
+  }
+})
+
+var upload = multer({ storage: storage })
 
 require('events').EventEmitter.prototype._maxListeners = 100;
 
@@ -22,6 +38,7 @@ http.listen(process.env.PORT || 3000);
 
 
 var path = __dirname + '/Public/login.html'
+
 
 app.all('/',function(req,res){
     res.sendFile(path)
@@ -51,9 +68,12 @@ app.get('/teacher/:query',function(req,res){
     res.sendFile(__dirname+"/Public/send_msg.html")
 })
 
-app.post('/send',function(req,res){
+app.post('/teacher/:query',upload.single('datafile'),function(req,res,next){
     var message = req.body.confirmationText;
     var scode=req.body.code;
+    var filename = req.body.datafile;
+    console.log(req.file.mimetype)
+    req.file.filename=req.file.filename+".jpg"
     var entry ={
         message:message,
         sub_code:scode,
@@ -73,6 +93,7 @@ app.post('/send',function(req,res){
          })
 
      })
+     
 })
 
 app.get('/courses',function(req,res){
@@ -114,6 +135,7 @@ app.get('/subject/:query',function(req,res){
 app.post('/action',function(req,res){
     console.log(req.body)
 })
+
 
 
 

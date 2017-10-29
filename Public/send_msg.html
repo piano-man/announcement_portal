@@ -56,9 +56,10 @@
     <!--documents-->
         <div class="row row-offcanvas row-offcanvas-left">
           <div class="col-xs-6 col-sm-3 sidebar-offcanvas" role="navigation">
-              <form action="/send" role='form' method="post">
+              <form action="" role='form' method="post" enctype="multipart/form-data">
               <textarea id="confirmationText" class="text" cols="86" rows ="20" name="confirmationText"></textarea>
-              <input type="text" class="text" placeholder="subject code" id="code">
+              <input type="text" class="text" placeholder="subject code" id="code" name = "code">
+              <input type="file" name="datafile" size="40">
               <input type="submit" value="Send" class="submitButton">
               </form>
           <script>
