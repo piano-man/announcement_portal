@@ -56,7 +56,8 @@ app.post('/send',function(req,res){
     var scode=req.body.code;
     var entry ={
         message:message,
-        sub_code:scode
+        sub_code:scode,
+        time: new Date()
     }
         mongo.connect(url,function(err,db){
         console.log('inside mongo');
@@ -72,7 +73,6 @@ app.post('/send',function(req,res){
          })
 
      })
-    res.redirect("http://localhost:3000/send_msg.html")
 })
 
 app.get('/courses',function(req,res){
@@ -80,6 +80,30 @@ app.get('/courses',function(req,res){
 })
 
 app.get('/subject/:query',function(req,res){
+    var entries = []
+    var subject = req.params.query
+        mongo.connect(url,function(err,db){
+        console.log('inside mongo');
+         db.collection('entries').find({"sub_code":subject},function(err,results){
+             if(err)
+             {
+                 console.log(err)
+             }
+             else{
+                  results.forEach(function(doc,err){
+                      entries.push(doc)
+                  })
+         console.log(entries)
+                  nsp = io.of('/'+subject)
+                  nsp.on('connection',function(socket){
+                      nsp.emit(subject,entries)
+                  })
+             }
+
+         })
+
+     })
+
     console.log("back end request")
     var name = req.params.query
     console.log(name)
