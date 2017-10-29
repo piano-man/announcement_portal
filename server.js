@@ -167,6 +167,24 @@ app.get('/subject/:query',function(req,res){
    
 })
 
+app.get('/effe',function(req,res){
+    res.redirect("http://localhost:3000/effe.html")
+
+})
+
+app.get('/sports',function(req,res){
+    
+})
+
+app.get('/tech',function(req,res){
+    
+})
+
+app.get('/gymkhana',function(req,res){
+    res.redirect("https://gymkhana.iiita.ac.in/")
+    
+})
+
 
 app.post('/action',function(req,res){
     console.log(req.body)
