@@ -62,12 +62,20 @@
               </div>
 
           <script>
-
+var count = 0;
           socket.on(s,function(data){
               console.log(data)
               var size = data.length
+         $('.list').empty()
+          $('.list2').empty()
+          $('.list3').empty()
+          if(size!=count)
+          {
+
+          
               for(i=0;i<size;i++)
               {
+                  count++;
                   console.log(data[i]._id)
                   if(data[i].file!=null)
                   {
@@ -75,7 +83,11 @@
                       
                   }
                   $("#list").append('<button type="button" id="' + data[i]._id + '" class = "btn btn-primary btn-block">' + data[i].message + '</button><br />');
+              
+            
+                  $("#list2").append('<button type="button" id="' + data[i]._id + '" class = "btn btn-primary btn-block" onclick="play_playlist_song(event)">' + Date(data[i].time) + '</button><br />');
               }
+          }
           })
           </script>
           </div>
@@ -85,17 +97,6 @@
           </div>
           <div class="col-md-4" role="navigation">
           <div id="list2" name="entrytime">
-              <script>
-                        socket.on(s,function(data){
-              console.log(data)
-              var size = data.length
-              for(i=0;i<size;i++)
-              {
-                  console.log(data[i]._id)
-                  $("#list2").append('<button type="button" id="' + data[i]._id + '" class = "btn btn-primary btn-block" onclick="play_playlist_song(event)">' + Date(data[i].time) + '</button><br />');
-              }
-          })
-              </script>
           </div>
           </div>
           <div class="col-xs-12 col-sm-9 content">
