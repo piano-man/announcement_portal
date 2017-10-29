@@ -51,19 +51,42 @@
       </nav>
     <!--header-->
     <div class="container-fluid">
-    <!--documents-->
-        <div class="row row-offcanvas row-offcanvas-left">
-          <div class="col-md-8" role="navigation">
-              <div class = "list" name="entries">
-              </div>
-          <script>
-          var s= (window.location.pathname).split('/')[2]
+    <!--documents--><script>
+              var s= (window.location.pathname).split('/')[2]
           var u = "http://localhost:3000/"+s
           var socket = io.connect(u)
+    </script>
+        <div class="row ">
+          <div class="col-md-8" role="navigation">
+              <div id = "list" name="entries">
+              </div>
+          <script>
+
           socket.on(s,function(data){
               console.log(data)
+              var size = data.length
+              for(i=0;i<size;i++)
+              {
+                  console.log(data[i]._id)
+                  $("#list").append('<button type="button" id="' + data[i]._id + '" class = "btn btn-primary btn-block" onclick="play_playlist_song(event)">' + data[i].message + '</button><br />');
+              }
           })
           </script>
+          </div>
+          <div class="col-md-4" role="navigation">
+          <div id="list2" name="entrytime">
+              <script>
+                        socket.on(s,function(data){
+              console.log(data)
+              var size = data.length
+              for(i=0;i<size;i++)
+              {
+                  console.log(data[i]._id)
+                  $("#list2").append('<button type="button" id="' + data[i]._id + '" class = "btn btn-primary btn-block" onclick="play_playlist_song(event)">' + Date(data[i].time) + '</button><br />');
+              }
+          })
+              </script>
+          </div>
           </div>
           <div class="col-xs-12 col-sm-9 content">
             <div class="panel panel-default">
