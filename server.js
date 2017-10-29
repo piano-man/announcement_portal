@@ -173,11 +173,11 @@ app.get('/effe',function(req,res){
 })
 
 app.get('/sports',function(req,res){
-    
+    res.redirect("http://localhost:3000/sports.html")
 })
 
 app.get('/tech',function(req,res){
-    
+    res.redirect("http://localhost:3000/tech.html")
 })
 
 app.get('/gymkhana',function(req,res){
