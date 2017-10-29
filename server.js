@@ -80,7 +80,7 @@ app.post('/teacher/:query',upload.single('datafile'),function(req,res,next){
                 const filena =req.file.originalname;
         const pa=`${__dirname}/`+"uploads/";
          data=image.loadSync(pa,filena);
-         console.log(data)
+
 
     }
     else{
@@ -95,7 +95,9 @@ app.post('/teacher/:query',upload.single('datafile'),function(req,res,next){
         message:message,
         sub_code:scode,
         time: new Date(),
-        file:data
+        file:data,
+        filename:req.file.originalname
+        
     }
         mongo.connect(url,function(err,db){
         console.log('inside mongo');
